@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -32,13 +33,54 @@ public class Ui {
     }
 
     /**
-     * Echoes the given command back to the user, framed by separators.
+     * Confirms that the given task has been added, framed by separators.
      *
-     * @param command the command to echo
+     * @param task the description of the task that was added
      */
-    public void echo(String command) {
+    public void showAdded(String task) {
         System.out.println(SEPARATOR);
-        System.out.println("     " + command);
+        System.out.println("     added: " + task);
+        System.out.println(SEPARATOR);
+        System.out.println();
+    }
+
+    /**
+     * Displays the list of tasks, each prefixed with its position and done status.
+     *
+     * @param tasks the tasks to display
+     */
+    public void showTasks(ArrayList<Task> tasks) {
+        System.out.println(SEPARATOR);
+        System.out.println("     Here are the tasks in your list:");
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println("     " + (i + 1) + "." + tasks.get(i));
+        }
+        System.out.println(SEPARATOR);
+        System.out.println();
+    }
+
+    /**
+     * Confirms that the given task has been marked as done.
+     *
+     * @param task the task that was marked as done
+     */
+    public void showMarked(Task task) {
+        System.out.println(SEPARATOR);
+        System.out.println("     Nice! I've marked this task as done:");
+        System.out.println("       " + task);
+        System.out.println(SEPARATOR);
+        System.out.println();
+    }
+
+    /**
+     * Confirms that the given task has been marked as not done.
+     *
+     * @param task the task that was marked as not done
+     */
+    public void showUnmarked(Task task) {
+        System.out.println(SEPARATOR);
+        System.out.println("     OK, I've marked this task as not done yet:");
+        System.out.println("       " + task);
         System.out.println(SEPARATOR);
         System.out.println();
     }
