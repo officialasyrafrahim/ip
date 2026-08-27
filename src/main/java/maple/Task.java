@@ -1,3 +1,5 @@
+package maple;
+
 /**
  * Represents a task in Maple's task list.
  */
@@ -19,10 +21,16 @@ public class Task {
         return isDone;
     }
 
+    /**
+     * Marks the task as done.
+     */
     public void markDone() {
         isDone = true;
     }
 
+    /**
+     * Marks the task as not done.
+     */
     public void markNotDone() {
         isDone = false;
     }

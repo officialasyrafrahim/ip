@@ -1,9 +1,16 @@
+package maple;
+
 import java.util.ArrayList;
 
 /**
  * Entry point for the Maple chatbot.
  */
 public class Maple {
+    /**
+     * Runs the Maple chatbot main loop.
+     *
+     * @param args command-line arguments (not used)
+     */
     public static void main(String[] args) {
         Ui ui = new Ui();
         ArrayList<Task> tasks = new ArrayList<>();

@@ -1,3 +1,5 @@
+package maple;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -14,6 +16,9 @@ public class Ui {
 
     private final Scanner scanner = new Scanner(System.in);
 
+    /**
+     * Prints the welcome message with the Maple banner, framed by separators.
+     */
     public void showWelcome() {
         System.out.println(SEPARATOR);
         System.out.println(BANNER);
@@ -85,6 +90,9 @@ public class Ui {
         System.out.println();
     }
 
+    /**
+     * Prints the farewell message, framed by separators.
+     */
     public void showExit() {
         System.out.println(SEPARATOR);
         System.out.println("     Bye. Hope to see you again soon!");
