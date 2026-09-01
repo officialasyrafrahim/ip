@@ -6,6 +6,14 @@ import java.util.ArrayList;
  * Entry point for the Maple chatbot.
  */
 public class Maple {
+    private static final String COMMAND_BYE = "bye";
+    private static final String COMMAND_LIST = "list";
+    private static final String COMMAND_MARK = "mark";
+    private static final String COMMAND_UNMARK = "unmark";
+    private static final String COMMAND_TODO = "todo";
+    private static final String COMMAND_DEADLINE = "deadline";
+    private static final String COMMAND_EVENT = "event";
+
     /**
      * Runs the Maple chatbot main loop.
      *
@@ -16,39 +24,53 @@ public class Maple {
         ArrayList<Task> tasks = new ArrayList<>();
         ui.showWelcome();
         String command = ui.readCommand();
-        while (!command.equals("bye")) {
-            if (command.equals("list")) {
-                ui.showTasks(tasks);
-            } else if (command.startsWith("mark ")) {
-                int index = Integer.parseInt(command.substring(5)) - 1;
-                Task task = tasks.get(index);
-                task.markDone();
-                ui.showMarked(task);
-            } else if (command.startsWith("unmark ")) {
-                int index = Integer.parseInt(command.substring(7)) - 1;
-                Task task = tasks.get(index);
-                task.markNotDone();
-                ui.showUnmarked(task);
-            } else if (command.startsWith("todo ")) {
-                addTask(tasks, new Todo(command.substring(5).trim()), ui);
-            } else if (command.startsWith("deadline ")) {
-                addTask(tasks, parseDeadline(command.substring(9)), ui);
-            } else if (command.startsWith("event ")) {
-                addTask(tasks, parseEvent(command.substring(6)), ui);
-            } else {
-                ui.showUnknownCommand();
-            }
+        while (!command.equals(COMMAND_BYE)) {
+            executeCommand(command, tasks, ui);
             command = ui.readCommand();
         }
         ui.showExit();
     }
 
     /**
-     * Adds the given task to the task list and confirms the addition to the user.
-     *
-     * @param tasks the task list to add to
-     * @param task  the task to add
-     * @param ui    the user interface used to confirm the addition
+     * Executes a single user command.
+     */
+    private static void executeCommand(String command, ArrayList<Task> tasks, Ui ui) {
+        String[] parts = command.split(" ", 2);
+        String keyword = parts[0];
+        String detail = parts.length > 1 ? parts[1].trim() : "";
+        if (keyword.equals(COMMAND_LIST)) {
+            ui.showTasks(tasks);
+        } else if (keyword.equals(COMMAND_MARK)) {
+            setDone(tasks, detail, true, ui);
+        } else if (keyword.equals(COMMAND_UNMARK)) {
+            setDone(tasks, detail, false, ui);
+        } else if (keyword.equals(COMMAND_TODO)) {
+            addTask(tasks, new Todo(detail), ui);
+        } else if (keyword.equals(COMMAND_DEADLINE)) {
+            addTask(tasks, parseDeadline(detail), ui);
+        } else if (keyword.equals(COMMAND_EVENT)) {
+            addTask(tasks, parseEvent(detail), ui);
+        } else {
+            ui.showUnknownCommand();
+        }
+    }
+
+    /**
+     * Marks or unmarks the task at the given index.
+     */
+    private static void setDone(ArrayList<Task> tasks, String detail, boolean isDone, Ui ui) {
+        Task task = tasks.get(Integer.parseInt(detail) - 1);
+        if (isDone) {
+            task.markDone();
+            ui.showMarked(task);
+        } else {
+            task.markNotDone();
+            ui.showUnmarked(task);
+        }
+    }
+
+    /**
+     * Adds a task to the task list and confirms it to the user.
      */
     private static void addTask(ArrayList<Task> tasks, Task task, Ui ui) {
         tasks.add(task);
@@ -56,10 +78,7 @@ public class Maple {
     }
 
     /**
-     * Parses the part of a deadline command after the "deadline " keyword.
-     *
-     * @param input the description followed by a "/by" marker and the due time
-     * @return the parsed deadline
+     * Parses a deadline command into a deadline.
      */
     private static Deadline parseDeadline(String input) {
         String[] parts = input.split("/by");
@@ -67,10 +86,7 @@ public class Maple {
     }
 
     /**
-     * Parses the part of an event command after the "event " keyword.
-     *
-     * @param input the description followed by "/from" and "/to" markers and times
-     * @return the parsed event
+     * Parses an event command into an event.
      */
     private static Event parseEvent(String input) {
         String[] parts = input.split("/from");

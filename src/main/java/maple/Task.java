@@ -8,9 +8,7 @@ public class Task {
     private boolean isDone;
 
     /**
-     * Constructs a new undone task with the given description.
-     *
-     * @param description the description of the task
+     * Constructs a task with the given description.
      */
     public Task(String description) {
         this.description = description;
@@ -21,11 +19,6 @@ public class Task {
         return isDone;
     }
 
-    /**
-     * Returns the status icon representing whether the task is done.
-     *
-     * @return "X" if the task is done, or a blank space otherwise
-     */
     public String getStatusIcon() {
         return isDone ? "X" : " ";
     }

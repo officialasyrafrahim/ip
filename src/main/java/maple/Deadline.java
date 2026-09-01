@@ -7,10 +7,7 @@ public class Deadline extends Task {
     private final String by;
 
     /**
-     * Constructs a new deadline with the given description and due time.
-     *
-     * @param description the description of the deadline
-     * @param by          the time by which the task must be completed
+     * Constructs a deadline with the given description and due time.
      */
     public Deadline(String description, String by) {
         super(description);

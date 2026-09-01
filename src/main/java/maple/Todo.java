@@ -5,9 +5,7 @@ package maple;
  */
 public class Todo extends Task {
     /**
-     * Constructs a new todo with the given description.
-     *
-     * @param description the description of the todo
+     * Constructs a todo with the given description.
      */
     public Todo(String description) {
         super(description);

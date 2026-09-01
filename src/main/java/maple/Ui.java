@@ -17,7 +17,7 @@ public class Ui {
     private final Scanner scanner = new Scanner(System.in);
 
     /**
-     * Prints the welcome message with the Maple banner, framed by separators.
+     * Prints the welcome message with the Maple banner.
      */
     public void showWelcome() {
         System.out.println(SEPARATOR);
@@ -30,18 +30,13 @@ public class Ui {
 
     /**
      * Reads the next line of user input.
-     *
-     * @return the command entered by the user
      */
     public String readCommand() {
         return scanner.nextLine();
     }
 
     /**
-     * Confirms that the given task has been added, framed by separators.
-     *
-     * @param task      the task that was added
-     * @param taskCount the number of tasks now in the list
+     * Confirms that a task has been added.
      */
     public void showAdded(Task task, int taskCount) {
         System.out.println(SEPARATOR);
@@ -53,9 +48,7 @@ public class Ui {
     }
 
     /**
-     * Displays the list of tasks, each prefixed with its position and done status.
-     *
-     * @param tasks the tasks to display
+     * Displays the list of tasks.
      */
     public void showTasks(ArrayList<Task> tasks) {
         System.out.println(SEPARATOR);
@@ -68,9 +61,7 @@ public class Ui {
     }
 
     /**
-     * Confirms that the given task has been marked as done.
-     *
-     * @param task the task that was marked as done
+     * Confirms that a task has been marked as done.
      */
     public void showMarked(Task task) {
         System.out.println(SEPARATOR);
@@ -81,9 +72,7 @@ public class Ui {
     }
 
     /**
-     * Confirms that the given task has been marked as not done.
-     *
-     * @param task the task that was marked as not done
+     * Confirms that a task has been marked as not done.
      */
     public void showUnmarked(Task task) {
         System.out.println(SEPARATOR);
@@ -94,7 +83,7 @@ public class Ui {
     }
 
     /**
-     * Informs the user that the command entered is not recognised.
+     * Informs the user that the command is not recognized.
      */
     public void showUnknownCommand() {
         System.out.println(SEPARATOR);
@@ -104,7 +93,7 @@ public class Ui {
     }
 
     /**
-     * Prints the farewell message, framed by separators.
+     * Prints the farewell message.
      */
     public void showExit() {
         System.out.println(SEPARATOR);
