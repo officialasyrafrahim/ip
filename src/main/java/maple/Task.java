@@ -22,6 +22,15 @@ public class Task {
     }
 
     /**
+     * Returns the status icon representing whether the task is done.
+     *
+     * @return "X" if the task is done, or a blank space otherwise
+     */
+    public String getStatusIcon() {
+        return isDone ? "X" : " ";
+    }
+
+    /**
      * Marks the task as done.
      */
     public void markDone() {
@@ -37,6 +46,6 @@ public class Task {
 
     @Override
     public String toString() {
-        return "[" + (isDone ? "X" : " ") + "] " + description;
+        return "[" + getStatusIcon() + "] " + description;
     }
 }

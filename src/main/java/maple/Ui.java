@@ -22,8 +22,8 @@ public class Ui {
     public void showWelcome() {
         System.out.println(SEPARATOR);
         System.out.println(BANNER);
-        System.out.println("Hello! I'm Maple.");
-        System.out.println("What can I do for you?");
+        System.out.println(" Hello! I'm Maple.");
+        System.out.println(" What can I do for you?");
         System.out.println(SEPARATOR);
         System.out.println();
     }
@@ -40,11 +40,14 @@ public class Ui {
     /**
      * Confirms that the given task has been added, framed by separators.
      *
-     * @param task the description of the task that was added
+     * @param task      the task that was added
+     * @param taskCount the number of tasks now in the list
      */
-    public void showAdded(String task) {
+    public void showAdded(Task task, int taskCount) {
         System.out.println(SEPARATOR);
-        System.out.println("     added: " + task);
+        System.out.println(" Got it. I've added this task:");
+        System.out.println("   " + task);
+        System.out.println(" Now you have " + taskCount + " tasks in the list.");
         System.out.println(SEPARATOR);
         System.out.println();
     }
@@ -56,9 +59,9 @@ public class Ui {
      */
     public void showTasks(ArrayList<Task> tasks) {
         System.out.println(SEPARATOR);
-        System.out.println("     Here are the tasks in your list:");
+        System.out.println(" Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println("     " + (i + 1) + "." + tasks.get(i));
+            System.out.println(" " + (i + 1) + "." + tasks.get(i));
         }
         System.out.println(SEPARATOR);
         System.out.println();
@@ -71,8 +74,8 @@ public class Ui {
      */
     public void showMarked(Task task) {
         System.out.println(SEPARATOR);
-        System.out.println("     Nice! I've marked this task as done:");
-        System.out.println("       " + task);
+        System.out.println(" Nice! I've marked this task as done:");
+        System.out.println("   " + task);
         System.out.println(SEPARATOR);
         System.out.println();
     }
@@ -84,8 +87,18 @@ public class Ui {
      */
     public void showUnmarked(Task task) {
         System.out.println(SEPARATOR);
-        System.out.println("     OK, I've marked this task as not done yet:");
-        System.out.println("       " + task);
+        System.out.println(" OK, I've marked this task as not done yet:");
+        System.out.println("   " + task);
+        System.out.println(SEPARATOR);
+        System.out.println();
+    }
+
+    /**
+     * Informs the user that the command entered is not recognised.
+     */
+    public void showUnknownCommand() {
+        System.out.println(SEPARATOR);
+        System.out.println(" OOPS!!! I'm sorry, but I don't know what that means :-(");
         System.out.println(SEPARATOR);
         System.out.println();
     }
@@ -95,7 +108,7 @@ public class Ui {
      */
     public void showExit() {
         System.out.println(SEPARATOR);
-        System.out.println("     Bye. Hope to see you again soon!");
+        System.out.println(" Bye. Hope to see you again soon!");
         System.out.println(SEPARATOR);
     }
 }
