@@ -13,6 +13,9 @@ public class Maple {
     private static final String COMMAND_TODO = "todo";
     private static final String COMMAND_DEADLINE = "deadline";
     private static final String COMMAND_EVENT = "event";
+    private static final String DEADLINE_MARKER = "/by";
+    private static final String EVENT_START_MARKER = "/from";
+    private static final String EVENT_END_MARKER = "/to";
 
     /**
      * Runs the Maple chatbot main loop.
@@ -46,9 +49,11 @@ public class Maple {
             setDone(tasks, detail, false, ui);
         } else if (keyword.equals(COMMAND_TODO)) {
             addTask(tasks, new Todo(detail), ui);
-        } else if (keyword.equals(COMMAND_DEADLINE)) {
+        } else if (keyword.equals(COMMAND_DEADLINE) && detail.contains(DEADLINE_MARKER)) {
             addTask(tasks, parseDeadline(detail), ui);
-        } else if (keyword.equals(COMMAND_EVENT)) {
+        } else if (keyword.equals(COMMAND_EVENT)
+                && detail.contains(EVENT_START_MARKER)
+                && detail.contains(EVENT_END_MARKER)) {
             addTask(tasks, parseEvent(detail), ui);
         } else {
             ui.showUnknownCommand();
@@ -81,7 +86,7 @@ public class Maple {
      * Parses a deadline command into a deadline.
      */
     private static Deadline parseDeadline(String input) {
-        String[] parts = input.split("/by");
+        String[] parts = input.split(DEADLINE_MARKER);
         return new Deadline(parts[0].trim(), parts[1].trim());
     }
 
@@ -89,8 +94,8 @@ public class Maple {
      * Parses an event command into an event.
      */
     private static Event parseEvent(String input) {
-        String[] parts = input.split("/from");
-        String[] fromAndTo = parts[1].split("/to");
+        String[] parts = input.split(EVENT_START_MARKER);
+        String[] fromAndTo = parts[1].split(EVENT_END_MARKER);
         return new Event(parts[0].trim(), fromAndTo[0].trim(), fromAndTo[1].trim());
     }
 }
