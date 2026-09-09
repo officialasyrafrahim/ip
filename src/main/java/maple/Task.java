@@ -19,6 +19,11 @@ public class Task {
         return isDone;
     }
 
+    /**
+     * Returns the icon that represents the task's completion status.
+     *
+     * @return {@code X} for a completed task, or a space otherwise.
+     */
     public String getStatusIcon() {
         return isDone ? "X" : " ";
     }

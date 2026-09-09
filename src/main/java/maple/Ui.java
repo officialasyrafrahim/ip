@@ -83,11 +83,13 @@ public class Ui {
     }
 
     /**
-     * Informs the user that the command is not recognized.
+     * Displays an error caused by an invalid command.
+     *
+     * @param message the message that explains the error.
      */
-    public void showUnknownCommand() {
+    public void showError(String message) {
         System.out.println(SEPARATOR);
-        System.out.println(" OOPS!!! I'm sorry, but I don't know what that means :-(");
+        System.out.println(" Oops! " + message);
         System.out.println(SEPARATOR);
         System.out.println();
     }
