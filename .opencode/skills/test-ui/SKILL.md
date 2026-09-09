@@ -23,7 +23,8 @@ test cases in the request, run those after the plan cases.
    python3 .opencode/skills/test-ui/scripts/run_ui_tests.py
    ```
 
-   The runner compiles every Java source file under `src/main/java`
+   The runner verifies Java 25, removes stale classes from `out`, and
+   recursively compiles every Java source file under `src/main/java`
    before it starts the test cases.
 
 2. The runner reads `test/ui-test-plan.md` and extracts every test

@@ -3,12 +3,15 @@
 
 import datetime
 import re
+import shutil
 import subprocess
 import sys
 from pathlib import Path
 
 PLAN_PATH = Path("test/ui-test-plan.md")
 SOURCE_ROOT = Path("src/main/java")
+OUTPUT_ROOT = Path("out")
+MAIN_CLASS = "maple.Maple"
 CASE_PATTERN = re.compile(
     r"### (TC\d+ [^\n]+)\n(.*?)(?=\n### TC\d+ |\Z)",
     re.DOTALL,
@@ -52,11 +55,30 @@ def load_cases(plan):
     return cases
 
 
-def compile_program():
-    """Compiles all Java sources into the out directory."""
-    source_files = sorted(str(path) for path in SOURCE_ROOT.rglob("*.java"))
+def check_java_version():
+    """Stops the test run unless Java 25 is available."""
     result = subprocess.run(
-        ["javac", "-d", "out", *source_files],
+        ["javac", "-version"],
+        capture_output=True,
+        text=True,
+    )
+    version = (result.stdout or result.stderr).strip()
+    if result.returncode != 0 or not re.match(r"javac 25(?:\.|$)", version):
+        print(f"Java 25 is required, but found: {version or 'javac unavailable'}")
+        sys.exit(1)
+
+
+def compile_program():
+    """Performs a clean compilation of every Java source file."""
+    source_files = sorted(str(path) for path in SOURCE_ROOT.rglob("*.java"))
+    if not source_files:
+        print(f"No Java source files found under {SOURCE_ROOT}.")
+        sys.exit(1)
+
+    shutil.rmtree(OUTPUT_ROOT, ignore_errors=True)
+    OUTPUT_ROOT.mkdir(parents=True)
+    result = subprocess.run(
+        ["javac", "-Xlint:all", "-d", str(OUTPUT_ROOT), *source_files],
         capture_output=True,
         text=True,
     )
@@ -69,7 +91,7 @@ def compile_program():
 def run_case(inputs):
     """Runs Maple with the given inputs and returns normalized stdout."""
     result = subprocess.run(
-        ["java", "-cp", "out", "maple.Maple"],
+        ["java", "-cp", str(OUTPUT_ROOT), MAIN_CLASS],
         input="\n".join(inputs) + "\n",
         capture_output=True,
         text=True,
@@ -129,6 +151,7 @@ def main():
         print(f"Invalid test plan: {exception}")
         sys.exit(1)
 
+    check_java_version()
     compile_program()
     sessions = []
     for title, aim, inputs, expected in cases:
