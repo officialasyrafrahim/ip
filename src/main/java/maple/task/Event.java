@@ -1,4 +1,4 @@
-package maple;
+package maple.task;
 
 /**
  * Represents a task that takes place between a start time and an end time.

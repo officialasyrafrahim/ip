@@ -1,7 +1,9 @@
-package maple;
+package maple.ui;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import maple.task.Task;
 
 /**
  * Handles Maple's user-facing input and output.
