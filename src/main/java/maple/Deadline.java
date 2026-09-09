@@ -4,18 +4,21 @@ package maple;
  * Represents a task that must be completed by a specific time.
  */
 public class Deadline extends Task {
-    private final String by;
+    private final String dueTime;
 
     /**
      * Constructs a deadline with the given description and due time.
+     *
+     * @param description the description of the deadline.
+     * @param dueTime the date or time by which the deadline must be completed.
      */
-    public Deadline(String description, String by) {
+    public Deadline(String description, String dueTime) {
         super(description);
-        this.by = by;
+        this.dueTime = dueTime;
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return "[D]" + super.toString() + " (by: " + dueTime + ")";
     }
 }
