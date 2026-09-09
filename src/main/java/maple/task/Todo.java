@@ -1,4 +1,4 @@
-package maple;
+package maple.task;
 
 /**
  * Represents a task with no additional date or time attached.

@@ -1,4 +1,4 @@
-package maple;
+package maple.task;
 
 /**
  * Represents a task in Maple's task list.

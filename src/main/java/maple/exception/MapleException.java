@@ -1,4 +1,4 @@
-package maple;
+package maple.exception;
 
 /**
  * Represents an error caused by an invalid Maple command.

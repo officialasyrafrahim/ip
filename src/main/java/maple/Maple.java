@@ -2,6 +2,13 @@ package maple;
 
 import java.util.ArrayList;
 
+import maple.exception.MapleException;
+import maple.task.Deadline;
+import maple.task.Event;
+import maple.task.Task;
+import maple.task.Todo;
+import maple.ui.Ui;
+
 /**
  * Entry point for the Maple chatbot.
  */
