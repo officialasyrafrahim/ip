@@ -4,6 +4,9 @@ package maple.task;
  * Represents a task that takes place between a start time and an end time.
  */
 public class Event extends Task {
+    /** Type identifier used when saving to and loading from the data file. */
+    public static final String TYPE = "E";
+
     private final String startTime;
     private final String endTime;
 
@@ -22,6 +25,11 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + startTime + " to: " + endTime + ")";
+        return "[" + TYPE + "]" + super.toString() + " (from: " + startTime + " to: " + endTime + ")";
+    }
+
+    @Override
+    public String toFileFormat() {
+        return TYPE + " | " + super.toFileFormat() + " | " + startTime + " | " + endTime;
     }
 }

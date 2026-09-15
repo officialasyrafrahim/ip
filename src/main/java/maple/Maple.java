@@ -1,8 +1,10 @@
 package maple;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import maple.exception.MapleException;
+import maple.storage.Storage;
 import maple.task.Deadline;
 import maple.task.Event;
 import maple.task.Task;
@@ -20,6 +22,7 @@ public class Maple {
     private static final String COMMAND_TODO = "todo";
     private static final String COMMAND_DEADLINE = "deadline";
     private static final String COMMAND_EVENT = "event";
+    private static final String DATA_FILE_PATH = "data/maple.txt";
     private static final String DEADLINE_MARKER = "/by";
     private static final String EVENT_START_MARKER = "/from";
     private static final String EVENT_END_MARKER = "/to";
@@ -31,7 +34,8 @@ public class Maple {
      */
     public static void main(String[] args) {
         Ui ui = new Ui();
-        ArrayList<Task> tasks = new ArrayList<>();
+        Storage storage = new Storage(DATA_FILE_PATH);
+        ArrayList<Task> tasks = loadTasks(storage, ui);
 
         ui.showWelcome();
         String command = ui.readCommand().trim();
@@ -45,6 +49,7 @@ public class Maple {
             command = ui.readCommand().trim();
         }
 
+        saveTasks(storage, tasks, ui);
         ui.showExit();
     }
 
@@ -187,5 +192,28 @@ public class Maple {
             markerIndex = input.indexOf(marker, markerEndIndex);
         }
         return -1;
+    }
+
+    /**
+     * Loads tasks from storage, falling back to an empty list on failure.
+     */
+    private static ArrayList<Task> loadTasks(Storage storage, Ui ui) {
+        try {
+            return storage.load();
+        } catch (IOException exception) {
+            ui.showError("Could not load saved tasks; starting with an empty list.");
+            return new ArrayList<>();
+        }
+    }
+
+    /**
+     * Saves tasks to storage, reporting any failure to the user.
+     */
+    private static void saveTasks(Storage storage, ArrayList<Task> tasks, Ui ui) {
+        try {
+            storage.save(tasks);
+        } catch (IOException exception) {
+            ui.showError("Could not save tasks to the data file.");
+        }
     }
 }

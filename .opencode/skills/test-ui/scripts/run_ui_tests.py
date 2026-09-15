@@ -6,6 +6,7 @@ import re
 import shutil
 import subprocess
 import sys
+import tempfile
 from pathlib import Path
 
 PLAN_PATH = Path("test/ui-test-plan.md")
@@ -89,13 +90,15 @@ def compile_program():
 
 
 def run_case(inputs):
-    """Runs Maple with the given inputs and returns normalized stdout."""
-    result = subprocess.run(
-        ["java", "-cp", str(OUTPUT_ROOT), MAIN_CLASS],
-        input="\n".join(inputs) + "\n",
-        capture_output=True,
-        text=True,
-    )
+    """Runs Maple in an isolated working dir so cases do not share saved state."""
+    with tempfile.TemporaryDirectory() as workdir:
+        result = subprocess.run(
+            ["java", "-cp", str(OUTPUT_ROOT.resolve()), MAIN_CLASS],
+            input="\n".join(inputs) + "\n",
+            capture_output=True,
+            text=True,
+            cwd=workdir,
+        )
     return normalize(result.stdout)
 
 
