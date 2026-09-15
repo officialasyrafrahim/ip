@@ -42,6 +42,13 @@ public class Task {
         isDone = false;
     }
 
+    /**
+     * Returns the portion of this task's data file format shared by all tasks.
+     */
+    public String toFileFormat() {
+        return (isDone ? "1" : "0") + " | " + description;
+    }
+
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;

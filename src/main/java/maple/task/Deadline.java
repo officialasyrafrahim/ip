@@ -4,6 +4,9 @@ package maple.task;
  * Represents a task that must be completed by a specific time.
  */
 public class Deadline extends Task {
+    /** Type identifier used when saving to and loading from the data file. */
+    public static final String TYPE = "D";
+
     private final String dueTime;
 
     /**
@@ -19,6 +22,11 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + dueTime + ")";
+        return "[" + TYPE + "]" + super.toString() + " (by: " + dueTime + ")";
+    }
+
+    @Override
+    public String toFileFormat() {
+        return TYPE + " | " + super.toFileFormat() + " | " + dueTime;
     }
 }
