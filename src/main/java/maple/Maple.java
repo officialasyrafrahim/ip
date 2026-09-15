@@ -20,6 +20,7 @@ public class Maple {
     private static final String COMMAND_TODO = "todo";
     private static final String COMMAND_DEADLINE = "deadline";
     private static final String COMMAND_EVENT = "event";
+    private static final String COMMAND_DELETE = "delete";
     private static final String DEADLINE_MARKER = "/by";
     private static final String EVENT_START_MARKER = "/from";
     private static final String EVENT_END_MARKER = "/to";
@@ -78,6 +79,11 @@ public class Maple {
             taskToUnmark.markNotDone();
             ui.showUnmarked(taskToUnmark);
             break;
+        case COMMAND_DELETE:
+            int deleteIndex = getTaskIndex(tasks, detail, COMMAND_DELETE);
+            Task taskToDelete = tasks.remove(deleteIndex);
+            ui.showDeleted(taskToDelete, tasks.size());
+            break;
         case COMMAND_TODO:
             addTask(tasks, parseTodo(detail), ui);
             break;
@@ -93,6 +99,10 @@ public class Maple {
     }
 
     private static Task getTask(ArrayList<Task> tasks, String detail, String action) throws MapleException {
+        return tasks.get(getTaskIndex(tasks, detail, action));
+    }
+
+    private static int getTaskIndex(ArrayList<Task> tasks, String detail, String action) throws MapleException {
         if (detail.isEmpty()) {
             throw new MapleException("Specify the number of the task to " + action + ".");
         }
@@ -110,7 +120,7 @@ public class Maple {
         if (index < 0 || index >= tasks.size()) {
             throw new MapleException("Choose a task number from 1 to " + tasks.size() + ".");
         }
-        return tasks.get(index);
+        return index;
     }
 
     /**

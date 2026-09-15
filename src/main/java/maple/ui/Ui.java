@@ -50,6 +50,18 @@ public class Ui {
     }
 
     /**
+     * Confirms that a task has been deleted.
+     */
+    public void showDeleted(Task task, int taskCount) {
+        System.out.println(SEPARATOR);
+        System.out.println(" Noted. I've removed this task:");
+        System.out.println("   " + task);
+        System.out.println(" Now you have " + taskCount + " tasks in the list.");
+        System.out.println(SEPARATOR);
+        System.out.println();
+    }
+
+    /**
      * Displays the list of tasks.
      */
     public void showTasks(ArrayList<Task> tasks) {
