@@ -39,15 +39,16 @@ public class Maple {
         ArrayList<Task> tasks = loadTasks(storage, ui);
 
         ui.showWelcome();
-        String command = ui.readCommand().trim();
-
-        while (!COMMAND_BYE.equals(command)) {
+        while (ui.hasNextCommand()) {
+            String command = ui.readCommand().trim();
+            if (COMMAND_BYE.equals(command)) {
+                break;
+            }
             try {
                 executeCommand(command, tasks, ui);
             } catch (MapleException exception) {
                 ui.showError(exception.getMessage());
             }
-            command = ui.readCommand().trim();
         }
 
         saveTasks(storage, tasks, ui);

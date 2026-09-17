@@ -38,6 +38,15 @@ public class Ui {
     }
 
     /**
+     * Returns whether another command can be read from the input.
+     *
+     * @return true if more input is available, false at end of input.
+     */
+    public boolean hasNextCommand() {
+        return scanner.hasNextLine();
+    }
+
+    /**
      * Confirms that a task has been added.
      */
     public void showAdded(Task task, int taskCount) {
