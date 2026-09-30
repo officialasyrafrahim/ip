@@ -10,6 +10,7 @@ import java.util.regex.Pattern;
 import maple.task.Deadline;
 import maple.task.Event;
 import maple.task.Task;
+import maple.task.TaskList;
 import maple.task.Todo;
 
 /**
@@ -33,10 +34,10 @@ public class Storage {
      * @return the stored tasks, or an empty list if the file does not exist.
      * @throws IOException if the file exists but cannot be read.
      */
-    public ArrayList<Task> load() throws IOException {
+    public TaskList load() throws IOException {
         ArrayList<Task> tasks = new ArrayList<>();
         if (!Files.exists(filePath)) {
-            return tasks;
+            return new TaskList(tasks);
         }
         for (String line : Files.readAllLines(filePath)) {
             Task task = parseLine(line);
@@ -44,7 +45,7 @@ public class Storage {
                 tasks.add(task);
             }
         }
-        return tasks;
+        return new TaskList(tasks);
     }
 
     /**
@@ -53,12 +54,12 @@ public class Storage {
      * @param tasks the tasks to save.
      * @throws IOException if the file cannot be written.
      */
-    public void save(ArrayList<Task> tasks) throws IOException {
+    public void save(TaskList tasks) throws IOException {
         if (filePath.getParent() != null) {
             Files.createDirectories(filePath.getParent());
         }
         List<String> lines = new ArrayList<>();
-        for (Task task : tasks) {
+        for (Task task : tasks.getTasks()) {
             lines.add(task.toFileFormat());
         }
         Files.write(filePath, lines);
@@ -68,7 +69,7 @@ public class Storage {
      * Parses one data file line into a task.
      */
     private static Task parseLine(String line) {
-        String[] parts = line.split(Pattern.quote(FIELD_SEPARATOR));
+        String[] parts = line.split(Pattern.quote(FIELD_SEPARATOR), -1);
         Task task = createTask(parts);
         if (task != null && parts[1].equals("1")) {
             task.markDone();
@@ -80,12 +81,15 @@ public class Storage {
      * Creates the task described by the given data file fields.
      */
     private static Task createTask(String[] parts) {
+        if (parts.length < 3) {
+            return null;
+        }
         String type = parts[0];
         if (type.equals(Todo.TYPE)) {
             return new Todo(parts[2]);
-        } else if (type.equals(Deadline.TYPE)) {
+        } else if (type.equals(Deadline.TYPE) && parts.length >= 4) {
             return new Deadline(parts[2], parts[3]);
-        } else if (type.equals(Event.TYPE)) {
+        } else if (type.equals(Event.TYPE) && parts.length >= 5) {
             return new Event(parts[2], parts[3], parts[4]);
         } else {
             return null;

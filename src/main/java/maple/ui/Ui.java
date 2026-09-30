@@ -1,6 +1,6 @@
 package maple.ui;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import maple.task.Task;
@@ -73,7 +73,7 @@ public class Ui {
     /**
      * Displays the list of tasks.
      */
-    public void showTasks(ArrayList<Task> tasks) {
+    public void showTasks(List<Task> tasks) {
         System.out.println(SEPARATOR);
         System.out.println(" Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
