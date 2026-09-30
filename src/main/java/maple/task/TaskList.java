@@ -92,7 +92,7 @@ public class TaskList {
     }
 
     /**
-     * Returns an unmodifiable view of the tasks.
+     * Returns a snapshot of the tasks in their current order.
      *
      * @return the tasks in their current order.
      */
