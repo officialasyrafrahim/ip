@@ -938,9 +938,118 @@ ____________________________________________________________
 ____________________________________________________________
 ```
 
+### TC17 Find matching tasks
+
+Aim: Verifies that `find` matches task descriptions case-insensitively
+and lists only matching tasks.
+
+Inputs:
+
+```
+todo read book
+deadline return BOOK /by Friday
+event project meeting /from Mon /to Tue
+find book
+bye
+```
+
+Expected output:
+
+```
+____________________________________________________________
+   __  ___          __
+  /  |/  /__ ____  / /__
+ / /|_/ / _ `/ _ \/ / -_)
+/_/  /_/\_,_/ .__/_/\__/
+           /_/
+ Hello! I'm Maple.
+ What can I do for you?
+____________________________________________________________
+
+____________________________________________________________
+ Got it. I've added this task:
+   [T][ ] read book
+ Now you have 1 tasks in the list.
+____________________________________________________________
+
+____________________________________________________________
+ Got it. I've added this task:
+   [D][ ] return BOOK (by: Friday)
+ Now you have 2 tasks in the list.
+____________________________________________________________
+
+____________________________________________________________
+ Got it. I've added this task:
+   [E][ ] project meeting (from: Mon to: Tue)
+ Now you have 3 tasks in the list.
+____________________________________________________________
+
+____________________________________________________________
+ Here are the matching tasks in your list:
+ 1.[T][ ] read book
+ 2.[D][ ] return BOOK (by: Friday)
+____________________________________________________________
+
+____________________________________________________________
+ Bye. Hope to see you again soon!
+____________________________________________________________
+```
+
+### TC18 Empty and unmatched find commands
+
+Aim: Verifies that an unmatched keyword displays an empty result and
+that a missing keyword produces an error without changing the task list.
+
+Inputs:
+
+```
+todo read book
+find homework
+find
+list
+bye
+```
+
+Expected output:
+
+```
+____________________________________________________________
+   __  ___          __
+  /  |/  /__ ____  / /__
+ / /|_/ / _ `/ _ \/ / -_)
+/_/  /_/\_,_/ .__/_/\__/
+           /_/
+ Hello! I'm Maple.
+ What can I do for you?
+____________________________________________________________
+
+____________________________________________________________
+ Got it. I've added this task:
+   [T][ ] read book
+ Now you have 1 tasks in the list.
+____________________________________________________________
+
+____________________________________________________________
+ Here are the matching tasks in your list:
+____________________________________________________________
+
+____________________________________________________________
+ Oops! A find command needs a keyword.
+____________________________________________________________
+
+____________________________________________________________
+ Here are the tasks in your list:
+ 1.[T][ ] read book
+____________________________________________________________
+
+____________________________________________________________
+ Bye. Hope to see you again soon!
+____________________________________________________________
+```
+
 ## Test session
 
-Run on 2026-10-01. All 16 cases passed.
+Run on 2026-10-01. All 18 cases passed.
 
 ### TC01 Welcome and exit
 
@@ -1852,6 +1961,113 @@ ____________________________________________________________
 ____________________________________________________________
  Here are the tasks in your list:
  1.[T][X] spaced task
+____________________________________________________________
+
+____________________________________________________________
+ Bye. Hope to see you again soon!
+____________________________________________________________
+```
+
+Result: PASS
+
+### TC17 Find matching tasks
+
+Console input:
+
+```
+todo read book
+deadline return BOOK /by Friday
+event project meeting /from Mon /to Tue
+find book
+bye
+```
+
+Console output:
+
+```
+____________________________________________________________
+   __  ___          __
+  /  |/  /__ ____  / /__
+ / /|_/ / _ `/ _ \/ / -_)
+/_/  /_/\_,_/ .__/_/\__/
+           /_/
+ Hello! I'm Maple.
+ What can I do for you?
+____________________________________________________________
+
+____________________________________________________________
+ Got it. I've added this task:
+   [T][ ] read book
+ Now you have 1 tasks in the list.
+____________________________________________________________
+
+____________________________________________________________
+ Got it. I've added this task:
+   [D][ ] return BOOK (by: Friday)
+ Now you have 2 tasks in the list.
+____________________________________________________________
+
+____________________________________________________________
+ Got it. I've added this task:
+   [E][ ] project meeting (from: Mon to: Tue)
+ Now you have 3 tasks in the list.
+____________________________________________________________
+
+____________________________________________________________
+ Here are the matching tasks in your list:
+ 1.[T][ ] read book
+ 2.[D][ ] return BOOK (by: Friday)
+____________________________________________________________
+
+____________________________________________________________
+ Bye. Hope to see you again soon!
+____________________________________________________________
+```
+
+Result: PASS
+
+### TC18 Empty and unmatched find commands
+
+Console input:
+
+```
+todo read book
+find homework
+find
+list
+bye
+```
+
+Console output:
+
+```
+____________________________________________________________
+   __  ___          __
+  /  |/  /__ ____  / /__
+ / /|_/ / _ `/ _ \/ / -_)
+/_/  /_/\_,_/ .__/_/\__/
+           /_/
+ Hello! I'm Maple.
+ What can I do for you?
+____________________________________________________________
+
+____________________________________________________________
+ Got it. I've added this task:
+   [T][ ] read book
+ Now you have 1 tasks in the list.
+____________________________________________________________
+
+____________________________________________________________
+ Here are the matching tasks in your list:
+____________________________________________________________
+
+____________________________________________________________
+ Oops! A find command needs a keyword.
+____________________________________________________________
+
+____________________________________________________________
+ Here are the tasks in your list:
+ 1.[T][ ] read book
 ____________________________________________________________
 
 ____________________________________________________________
