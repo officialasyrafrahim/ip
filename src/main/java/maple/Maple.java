@@ -22,6 +22,7 @@ public class Maple {
     private static final String COMMAND_DEADLINE = "deadline";
     private static final String COMMAND_EVENT = "event";
     private static final String COMMAND_DELETE = "delete";
+    private static final String COMMAND_FIND = "find";
     private static final String DATA_FILE_PATH = "data/maple.txt";
 
     private final Parser parser;
@@ -103,6 +104,10 @@ public class Maple {
             int taskNumber = parser.parseTaskNumber(detail, COMMAND_DELETE);
             Task taskToDelete = tasks.delete(taskNumber);
             ui.showDeleted(taskToDelete, tasks.size());
+            break;
+        case COMMAND_FIND:
+            String findKeyword = parser.parseFindKeyword(detail);
+            ui.showMatchingTasks(tasks.find(findKeyword));
             break;
         case COMMAND_TODO:
             addTask(parser.parseTodo(detail));

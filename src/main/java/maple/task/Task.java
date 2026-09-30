@@ -1,5 +1,7 @@
 package maple.task;
 
+import java.util.Locale;
+
 /**
  * Represents a task in Maple's task list.
  */
@@ -45,6 +47,18 @@ public class Task {
      */
     public void markNotDone() {
         isDone = false;
+    }
+
+    /**
+     * Returns whether the description contains the given keyword, ignoring case.
+     *
+     * @param keyword the keyword to find.
+     * @return true if the description contains the keyword, or false otherwise.
+     */
+    public boolean matches(String keyword) {
+        String normalizedDescription = description.toLowerCase(Locale.ROOT);
+        String normalizedKeyword = keyword.toLowerCase(Locale.ROOT);
+        return normalizedDescription.contains(normalizedKeyword);
     }
 
     /**

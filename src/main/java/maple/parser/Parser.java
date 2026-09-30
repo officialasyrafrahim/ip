@@ -47,6 +47,20 @@ public class Parser {
     }
 
     /**
+     * Parses the keyword of a find command.
+     *
+     * @param detail the command details containing the keyword.
+     * @return the keyword to find.
+     * @throws MapleException if the keyword is missing.
+     */
+    public String parseFindKeyword(String detail) throws MapleException {
+        if (detail.isEmpty()) {
+            throw new MapleException("A find command needs a keyword.");
+        }
+        return detail;
+    }
+
+    /**
      * Parses a todo from its command details.
      *
      * @param description the todo description.
