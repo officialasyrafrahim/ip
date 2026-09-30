@@ -76,6 +76,22 @@ public class TaskList {
     }
 
     /**
+     * Finds tasks whose descriptions contain the given keyword.
+     *
+     * @param keyword the keyword to find.
+     * @return the matching tasks in their current order.
+     */
+    public List<Task> find(String keyword) {
+        List<Task> matches = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.matches(keyword)) {
+                matches.add(task);
+            }
+        }
+        return matches;
+    }
+
+    /**
      * Returns an unmodifiable view of the tasks.
      *
      * @return the tasks in their current order.
